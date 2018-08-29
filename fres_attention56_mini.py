@@ -238,7 +238,7 @@ def attention_module_stage1(data, out_channels, **kwargs):
 
     attentionA_1_mask_down_sample_res_3_2 = skip_residual_unit(attentionA_1_mask_down_sample_res_3_1, out_channels, 1, True, "attentionA_1_mask_down_sample_res3_2_branch1", **kwargs)
 
-    attentionA_1_mask_up_sample_interp_3 = mx.sym.contrib.BilinearResize2D(data=attentionA_1_mask_down_sample_res_3_2, height=28, width=28)
+    attentionA_1_mask_up_sample_interp_3 = mx.sym.contrib.BilinearResize2D(data=attentionA_1_mask_down_sample_res_3_2, height=14, width=14)
 
     #mask_skip_res2_branch1
     attentionA_1_mask_skip_res2 = skip_residual_unit(attentionA_1_mask_down_sample_res2_1, out_channels, 1, True, "attentionA_1_mask_skip_res2", **kwargs)
@@ -247,14 +247,14 @@ def attention_module_stage1(data, out_channels, **kwargs):
 
     attention_A_1_mask_up_sample2 = attentionA_1_mask_up_sample_interp_3 + attentionA_1_mask_skip_res2
     attention_A_1_mask_up_sample_res2_1 = skip_residual_unit(attention_A_1_mask_up_sample2, out_channels, 1, True, "attentionA_1_mask_up_sample_res2_1_branch1", **kwargs)
-    attention_A_1_mask_up_sample_interp_2 = mx.sym.contrib.BilinearResize2D(data=attention_A_1_mask_up_sample_res2_1, height=56, width=56)
+    attention_A_1_mask_up_sample_interp_2 = mx.sym.contrib.BilinearResize2D(data=attention_A_1_mask_up_sample_res2_1, height=28, width=28)
 
     attention_A_1_up_sample1 = attentionA_1_mask_skip_res1 + attention_A_1_mask_up_sample_interp_2
 
     attention_A_1_mask_up_sample_res1_1 = skip_residual_unit(attention_A_1_up_sample1, out_channels, 1, True, "attentionA_1_mask_up_sample_res1_1_branch")
 
 
-    attention_A_1_mask_up_sample_interp_1 = mx.sym.contrib.BilinearResize2D(data=attention_A_1_mask_up_sample_res1_1, height=112, width=112)
+    attention_A_1_mask_up_sample_interp_1 = mx.sym.contrib.BilinearResize2D(data=attention_A_1_mask_up_sample_res1_1, height=56, width=56)
 
     attention_A_1_mask = mask_linear(attention_A_1_mask_up_sample_interp_1, out_channels, 'attentionA_1_mask', **kwargs)
 
@@ -278,7 +278,7 @@ def attention_module_stage2(data,out_channels,**kwargs):
     attentionB_1_mask_down_sample_res2_1 = skip_residual_unit(attentionB_1_mask_down_sample_pool2, out_channels, 1, True, 'attentionB_1_mask_down_sample_res2_1_branch1', **kwargs)
     attentionB_1_mask_down_sample_res2_2 = skip_residual_unit(attentionB_1_mask_down_sample_res2_1, out_channels, 1, True, 'attentionB_1_mask_down_sample_res2_2_branch1', **kwargs)
 
-    attentionB_1_mask_up_sample_interp2 = mx.sym.contrib.BilinearResize2D(data=attentionB_1_mask_down_sample_res2_2, height=28, width=28)
+    attentionB_1_mask_up_sample_interp2 = mx.sym.contrib.BilinearResize2D(data=attentionB_1_mask_down_sample_res2_2, height=14, width=14)
 
     attentionB_1_mask_skip_res1 = skip_residual_unit(attentionB_1_mask_down_sample_res1_1, out_channels, 1, True, 'attentionB_1_mask_skip_res1_branch1', **kwargs)
 
@@ -287,7 +287,7 @@ def attention_module_stage2(data,out_channels,**kwargs):
     attentionB_1_mask_up_sample_res1_1 = skip_residual_unit(attentionB_1_mask_up_sample1, out_channels, 1, True, 'attentionB_1_mask_up_sample_res1_1_branch1', **kwargs)
 
 
-    attentionB_1_mask_up_sample_interp_1 = mx.sym.contrib.BilinearResize2D(data=attentionB_1_mask_up_sample_res1_1, height=56, width=56)
+    attentionB_1_mask_up_sample_interp_1 = mx.sym.contrib.BilinearResize2D(data=attentionB_1_mask_up_sample_res1_1, height=28, width=28)
 
     attentionB_1_mask = mask_linear(attentionB_1_mask_up_sample_interp_1, out_channels, 'attentionB_1_mask', **kwargs)
 
@@ -313,7 +313,7 @@ def attention_module_stage3(data, out_channels,**kwargs):
     attentionC_1_mask_down_sample_res1_2 = skip_residual_unit(attentionC_1_mask_down_sample_res1_1, out_channels, 1, True, 'attentionC_1_mask_down_sample_res1_2_branch1', **kwargs)
     #attentionC_1_mask_down_sample_res1_2 = skip_residual_unit(attentionC_1_mask_down_sample_res1_1, 1024, 1, True, 'attentionC_1_mask_down_sample_res1_2_branch1', **kwargs)
 
-    attentionC_1_mask_up_sample_interp_1 = mx.sym.contrib.BilinearResize2D(data=attentionC_1_mask_down_sample_res1_2, height=28, width=28)
+    attentionC_1_mask_up_sample_interp_1 = mx.sym.contrib.BilinearResize2D(data=attentionC_1_mask_down_sample_res1_2, height=14, width=14)
 
     attentionC_1_mask = mask_linear(attentionC_1_mask_up_sample_interp_1, out_channels, 'attentionC_1_mask', **kwargs)
     #attentionC_1_mask = mask_linear(attentionC_1_mask_up_sample_interp_1, 1024, 'attentionC_1_mask', **kwargs)
@@ -371,7 +371,8 @@ def attention_residual_56(num_classes, **kwargs):
                     no_bias=True, name="conv0", workspace=workspace)
         body = mx.sym.BatchNorm(data=body, fix_gamma=False, eps=2e-5, momentum=bn_mom, name='bn0')
         body = Act(data=body, act_type=act_type, name='relu0')
-        # body = mx.sym.Pooling(data=body, kernel=(3, 3), stride=(2,2), pad=(1,1), pool_type='max')
+        #add pooling
+        body = mx.sym.Pooling(data=body, kernel=(3, 3), stride=(2,2), pad=(1,1), pool_type='max')
 
     pre_res_1 = skip_residual_unit_follow_act(body, 256, 1, False, 'pre_res_1_branch1', **kwargs)
     attentionA_1_trunk_res1 = skip_residual_unit(pre_res_1, 256, 1, True, 'AttentionA_1_trunk_res1_branch1', **kwargs)
@@ -393,7 +394,7 @@ def attention_residual_56(num_classes, **kwargs):
     #post_res_4_3 = skip_residual_unit(post_res_4_2, 2048, 1, True, 'post_res_4_3_branch1', **kwargs)
     
     fc1 = symbol_utils.get_fc1(post_res_4_3, num_classes, fc_type)
-    print_summary(post_res_4_3, (1,3,112,112))
+    #print_summary(post_res_4_3, (1,3,112,112))
     #arg_name = post_res_4_3.list_arguments()
     #out_name = post_res_4_3.list_outputs()
     #arg_shape, out_shape, _ = post_res_4_3.infer_shape(data=(1,3,112,112))
